@@ -1,9 +1,17 @@
 <?php
+// Initialize the session
 session_start();
+
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
 ?>
+
 <html>
 <head>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Home</title>
 
@@ -16,7 +24,7 @@ session_start();
 
 <body>
     <header style="
-    background: linear-gradient(rgba(0,0,100,0.5),rgba(0,0,100,0.5)),url(assets/img/webshop.png);
+    background: linear-gradient(rgba(0,0,100,0.5),rgba(0,0,100,0.5)),url(../assets/img/webshop.png);
     background-size: cover;
     background-position: center;
     height: 100vh;">
@@ -43,7 +51,7 @@ session_start();
 
 
                                   if(isset($_SESSION["loggedin"])){
-                                    echo "<li><a href='view/account.php'>Mijn Account</a></li>";
+                                    echo "<li><a href='account.php'>Mijn Account</a></li>";
                                     echo "<li><a href='src/logout.php'>Log uit</a></li>";
 
                                   }
@@ -54,23 +62,23 @@ session_start();
         </nav>
         <?php
 
-
-        // Check if the user is logged in, if not then redirect him to login page
-        if(!isset($_SESSION["loggedin"])){
-          echo "<h1> Welkom op onze webshop!</h1>";
-
-        }
-
-
-
         if(isset($_SESSION["loggedin"])){
-          echo "<h1>Hallo " . htmlspecialchars($_SESSION["username"]) . ",<br> Welkom op onze webshop!</h1>";
+          echo "<h1>Hallo " . htmlspecialchars($_SESSION["username"]) . ",<br> Uw account!!</h1>";
 
         }
         ?>
-        ss
+        
 
     </header>
+
+    <div class="content">
+          <h2>Hallo, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Uw account</h2>
+      <p>
+          <a href="reset-password.php" class="btn btn-warning">Wijzig uw wachtwoord</a>
+          <a href="logout.php" class="btn btn-danger">Log uit </a>
+      </p>
+
+    </div>
 
     
 
